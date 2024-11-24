@@ -1,0 +1,23 @@
+Object { url: "stun:us-turn9.xirsys.com" }
+​
+url: "stun:us-turn9.xirsys.com"
+​
+<prototype>: Object { … }
+HomeView.vue:86:10
+Object { username: "3VW07KcHjASXOVxgNcclrRsXgWo1O-9y_Hg7ItL0Fgd4kzOtFuHG8wHi6v7mrmeYAAAAAGbyDjJqdHJpbW0wMDc=", url: "turn:us-turn9.xirsys.com:80?transport=tcp", credential: "ceb913c6-7a0f-11ef-9461-0242ac140004" }
+​
+credential: "ceb913c6-7a0f-11ef-9461-0242ac140004"
+​
+url: "turn:us-turn9.xirsys.com:80?transport=tcp"
+​
+username: "3VW07KcHjASXOVxgNcclrRsXgWo1O-9y_Hg7ItL0Fgd4kzOtFuHG8wHi6v7mrmeYAAAAAGbyDjJqdHJpbW0wMDc="
+​
+<prototype>: Object { … }
+HomeView.vue:87:10
+Object { username: "3VW07KcHjASXOVxgNcclrRsXgWo1O-9y_Hg7ItL0Fgd4kzOtFuHG8wHi6v7mrmeYAAAAAGbyDjJqdHJpbW0wMDc=", url: "turn:us-turn9.xirsys.com:3478?transport=tcp", credential: "ceb913c6-7a0f-11ef-9461-0242ac140004" }
+​
+credential: "ceb913c6-7a0f-11ef-9461-0242ac140004"
+​
+url: "turn:us-turn9.xirsys.com:3478?transport=tcp"
+​
+username: 
