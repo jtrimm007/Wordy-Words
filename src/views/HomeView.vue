@@ -1,5 +1,9 @@
 <template>
   <div>
+      <div>
+    <p v-if="peerConnected">My peer ID is: {{ peerId }}</p>
+    <button v-if="peerConnected" @click="copyPeerId">Copy ID</button>
+  </div>
     <input v-model="username" placeholder="Enter your username" />
     <button @click="initializePeer">Join Chat</button>
     <input v-model="connectionId" placeholder="Enter connection id" />
@@ -18,6 +22,7 @@
 import { onMounted, ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import Peer from 'peerjs'
+import { CLOSING } from 'ws';
 
 const username = ref('')
 const message = ref('')
@@ -114,6 +119,7 @@ const initializePeer = async () => {
   peer.on('open', (id) => {
     peerId.value = id
     peerConnected.value = true
+    console.log('My peer ID is:', id)
   })
 
   peer.on('connection', (conn) => {
@@ -133,7 +139,13 @@ const initializePeer = async () => {
     })
   })
 }
-
+const copyPeerId = () => {
+  navigator.clipboard.writeText(peerId.value).then(() => {
+    console.log('Peer ID copied to clipboard')
+  }).catch(err => {
+    console.error('Failed to copy peer ID: ', err)
+  })
+}
 // Send a message to all connected peers
 const sendMessage = () => {
   if (!message.value) return
