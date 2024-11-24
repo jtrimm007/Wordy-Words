@@ -22,7 +22,6 @@
 import { onMounted, ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import Peer from 'peerjs'
-import { CLOSING } from 'ws';
 
 const username = ref('')
 const message = ref('')
