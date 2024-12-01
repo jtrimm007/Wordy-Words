@@ -1,8 +1,9 @@
 <template>
-   <div></div>
+    <AlphabetSelector />
 </template>
 
 <script setup>
+import AlphabetSelector from '@/components/AlphabetSelector.vue';
 import AppBar from '@/components/AppBar.vue'
 
 const handleClick = () => {
