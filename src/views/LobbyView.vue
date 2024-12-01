@@ -1,20 +1,17 @@
 <template>
     <AlphabetSelector />
+    <TimyTimer />
+    <WordyzInput />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import AlphabetSelector from '@/components/AlphabetSelector.vue';
-import AppBar from '@/components/AppBar.vue'
+import TimyTimer from '@/components/TimyTimer.vue';
+import WordyzInput from '@/components/WordyzInput.vue';
 
 const handleClick = () => {
     console.log('Button clicked')
 }
 </script>
 
-<style>
-/* Global styles */
-body {
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-}
-</style>
+<style scoped></style>
