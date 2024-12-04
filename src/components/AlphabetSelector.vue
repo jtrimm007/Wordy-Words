@@ -12,6 +12,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+const emit = defineEmits(['go'])
 const alphabet: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('')
 const selectedLetter = ref<string>('')
 const previouslySelectedLetters = ref<string[]>([])
@@ -25,9 +26,10 @@ const selectLetter = (letter: string) => {
 }
 
 const confirmSelection = () => {
-    if (selectedLetter.value) {
+    if (selectedLetter.value && !previouslySelectedLetters.value.includes(selectedLetter.value)) {
         previouslySelectedLetters.value.push(selectedLetter.value)
         selectedLetter.value = ''
+        emit('go', selectedLetter.value)
     }
 }
 </script>

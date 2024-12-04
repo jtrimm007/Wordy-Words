@@ -6,10 +6,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, defineExpose } from 'vue'
+import { ref, onMounted, onUnmounted, defineExpose, watch } from 'vue'
+const props = defineProps<{
+    timerOn: boolean
+}>()
 
+watch(() => props.timerOn, (timerOn) => {
+
+    if (timerOn) {
+        startTimer()
+    }
+})
 const initialTime = 30
-const timeLeft = ref(initialTime)
+const timeLeft = ref<number>(initialTime)
 const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60)
     const remainingSeconds = seconds % 60
@@ -17,7 +26,7 @@ const formatTime = (seconds: number) => {
 }
 const formattedTime = ref(formatTime(timeLeft.value))
 let timerInterval: number | null = null
-
+const emit = defineEmits(['timerEnd'])
 const startTimer = () => {
     if (timerInterval) return
     timerInterval = setInterval(() => {
@@ -27,12 +36,15 @@ const startTimer = () => {
         } else {
             clearInterval(timerInterval!)
             timerInterval = null
+            timeLeft.value = initialTime
+            formattedTime.value = formatTime(timeLeft.value)
+            emit('timerEnd')
         }
     }, 1000)
 }
 
 onMounted(() => {
-    startTimer()
+    // startTimer()
 })
 
 onUnmounted(() => {
