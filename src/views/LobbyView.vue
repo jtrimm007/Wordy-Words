@@ -1,7 +1,7 @@
 <template>
     <AlphabetSelector @go="startTimer" />
     <TimyTimer :timer-on="timerOn" @timer-end="endTimer" />
-    <WordyzInput />
+    <WordyzInput :timer-on="timerOn" />
 </template>
 
 <script setup lang="ts">
@@ -10,6 +10,7 @@ import TimyTimer from '@/components/TimyTimer.vue';
 import WordyzInput from '@/components/WordyzInput.vue';
 import { ref } from 'vue';
 const timerOn = ref<boolean>(false);
+
 const startTimer = () => {
     console.log('Timer started')
     timerOn.value = true

@@ -1,4 +1,5 @@
 <template>
+    {{ !props.timerOn }}
     <div class="input-container">
         <div class="input-group">
             <label for="person">Person</label>
@@ -27,16 +28,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+
+const props = defineProps<{
+    timerOn: boolean
+}>()
 
 const person = ref('')
 const place = ref('')
 const animal = ref('')
 
-const isPersonSubmitted = ref(false)
-const isPlaceSubmitted = ref(false)
-const isAnimalSubmitted = ref(false)
-
+const isPersonSubmitted = ref(!props.timerOn)
+const isPlaceSubmitted = ref(!props.timerOn)
+const isAnimalSubmitted = ref(!props.timerOn)
+watch(() => props.timerOn, (timerOn) => {
+    isPersonSubmitted.value = !timerOn
+    isPlaceSubmitted.value = !timerOn
+    isAnimalSubmitted.value = !timerOn
+})
 const toggleSubmit = (field: string) => {
     if (field === 'person') {
         isPersonSubmitted.value = !isPersonSubmitted.value
