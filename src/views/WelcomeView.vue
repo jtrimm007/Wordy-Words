@@ -7,8 +7,10 @@
             <button v-if="!creatingLobby && !joiningLobby" @click="joinLobby">Join Lobby</button>
             <button v-if="!creatingLobby && !joiningLobby" @click="createLobby">Create Lobby</button>
             <div v-if="creatingLobby" class="input-section">
-                <input v-model="username" type="text" placeholder="Enter your username" />
+                <input v-model="username" type="text" placeholder="Enter your username"
+                    :class="{ 'input-error': usernameError }" />
                 <button @click="goToLobby">Go</button>
+                <p v-if="usernameError" class="error-message">Please enter a username</p>
             </div>
             <div v-if="joiningLobby" class="input-section">
                 <input v-model="lobbyId" type="text" placeholder="Enter Lobby ID" />
@@ -20,12 +22,19 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import useP2P from '@/p2p'
+import { hashData, hashDataMD5 } from '@/utils';
+import { useState } from '@/stores/state'
+import { storeToRefs } from 'pinia';
 
+const state = useState();
+const { p2p, peer } = storeToRefs(state);
 const router = useRouter()
 const creatingLobby = ref(false)
 const joiningLobby = ref(false)
 const username = ref('')
 const lobbyId = ref('')
+const usernameError = ref(false);
 
 const joinLobby = () => {
     joiningLobby.value = true
@@ -37,9 +46,19 @@ const createLobby = () => {
     console.log('Create Lobby button clicked')
 }
 
-const goToLobby = () => {
+const goToLobby = async () => {
+    if (!username.value) {
+        usernameError.value = true;
+        return;
+    }
     console.log('Go button clicked with username:', username.value)
+    const hash = hashDataMD5([username.value, Date.now()])
+    console.log(hash);
+    p2p.value = await useP2P(`${username.value}-${hash}`);
+    console.log(p2p.value);
+    peer.value = p2p.value.createPeer();
 
+    console.log(peer.value);
     // create the hosting peer connection
     // add meta data to the meta section of the peer connection showing that this is the host
 
@@ -87,5 +106,15 @@ input {
     padding: 10px;
     font-size: 16px;
     margin-right: 10px;
+}
+
+.input-error {
+    border: 1px solid red;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
 }
 </style>
