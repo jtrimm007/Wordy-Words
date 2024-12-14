@@ -25,7 +25,7 @@ const formatTime = (seconds: number) => {
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
 }
 const formattedTime = ref(formatTime(timeLeft.value))
-let timerInterval: number | null = null
+let timerInterval: NodeJS.Timeout | null = null
 const emit = defineEmits(['timerEnd'])
 const startTimer = () => {
     if (timerInterval) return

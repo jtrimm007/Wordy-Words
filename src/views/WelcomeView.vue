@@ -39,6 +39,10 @@ const createLobby = () => {
 
 const goToLobby = () => {
     console.log('Go button clicked with username:', username.value)
+
+    // create the hosting peer connection
+    // add meta data to the meta section of the peer connection showing that this is the host
+
     // Add your logic to proceed with the username here
     // Navigate to the /lobby route
     router.push('/lobby')

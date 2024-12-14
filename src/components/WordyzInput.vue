@@ -1,5 +1,4 @@
 <template>
-    {{ !props.timerOn }}
     <div class="input-container">
         <div class="input-group">
             <label for="person">Person</label>
