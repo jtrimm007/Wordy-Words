@@ -16,12 +16,18 @@
   </main>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 import AppBar from '@/components/AppBar.vue'
 import { RouterView } from 'vue-router'
 import { useState } from './stores/state';
-import { storeToRefs } from 'pinia';
+import { seedAnimalCSVData } from '@/db/seed';
+
+
+onBeforeMount(async () => {
+  await seedAnimalCSVData('./src/assets/animals-info.csv');
+})
+
 const route = useRoute()
 const state = useState()
 const { getLobbyId } = state

@@ -31,3 +31,12 @@ coverage
 
 test-results/
 playwright-report/
+
+# models
+models/names_model/logs/
+models/names_model/results/checkpoints/
+models/names_model/logs/
+models/names_model/scripts/models/
+*.pt
+
+models/names_model/Miniconda3-latest-MacOSX-arm64.sh
