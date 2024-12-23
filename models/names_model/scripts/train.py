@@ -1,7 +1,6 @@
 import torch
 from torch.utils.data import Dataset
 from transformers import Trainer, TrainingArguments, DistilBertForSequenceClassification
-import torch
 
 torch.set_num_threads(10)  # Use 10 threads for intra-op parallelism
 torch.set_num_interop_threads(2)  # Use 2 threads for inter-op parallelism
@@ -30,7 +29,7 @@ model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-unc
 # Define training arguments
 training_args = TrainingArguments(
     output_dir="../results/checkpoints/",
-    dataloader_num_workers=4,
+    dataloader_num_workers=2,
     num_train_epochs=3,
     per_device_train_batch_size=32,
     per_device_eval_batch_size=32,
@@ -63,8 +62,8 @@ if __name__ == '__main__':
     )
 
     # Train the model
-    # trainer.train(resume_from_checkpoint="../results/checkpoints/checkpoint-162849")
-    trainer.train()
+    trainer.train(resume_from_checkpoint="../results/checkpoints/checkpoint-15000")
+    # trainer.train()
         # Save the final model
     model.save_pretrained("models/fine_tuned_distilbert")
    

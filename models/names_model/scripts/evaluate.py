@@ -12,7 +12,7 @@ def load_data(token_path):
 
 if __name__ == "__main__":
     # Load test data
-    test_tokens, test_labels = load_data("../data/test_tokens.pt")
+    test_tokens, test_labels = load_data("../data/training_data/test_tokens.pt")
     print(test_tokens)
     print(test_labels)
     # Load fine-tuned model

@@ -21,6 +21,6 @@ if __name__ == "__main__":
     tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
 
     # Predict for new words
-    test_word = "City"
+    test_word = "t-mobile"
     result = predict_name(test_word, model, tokenizer)
     print(f"Prediction for '{test_word}': {result}")
