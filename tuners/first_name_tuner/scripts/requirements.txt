@@ -1,0 +1,7 @@
+nltk
+torch
+torchvision
+torchaudio
+transformers
+pandas
+scikit-learn
