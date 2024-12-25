@@ -37,7 +37,7 @@ models/
 *.pt
 
 # tuners
-tuners/first_name_tuner/data/
+# tuners/first_name_tuner/data/
 tuners/first_name_tuner/results/
 
 tuners/first_name_tuner/Miniconda3-latest-MacOSX-arm64.sh
