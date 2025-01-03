@@ -33,6 +33,8 @@ const props = defineProps<{
     timerOn: boolean
 }>()
 
+const emit = defineEmits(['submitWords'])
+
 const person = ref('')
 const place = ref('')
 const animal = ref('')
@@ -52,6 +54,10 @@ const toggleSubmit = (field: string) => {
         isPlaceSubmitted.value = !isPlaceSubmitted.value
     } else if (field === 'animal') {
         isAnimalSubmitted.value = !isAnimalSubmitted.value
+    }
+
+    if (isPersonSubmitted.value && isPlaceSubmitted.value && isAnimalSubmitted.value) {
+        emit('submitWords', [person.value, place.value, animal.value])
     }
 }
 </script>

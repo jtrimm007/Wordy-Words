@@ -28,8 +28,9 @@ const selectLetter = (letter: string) => {
 const confirmSelection = () => {
     if (selectedLetter.value && !previouslySelectedLetters.value.includes(selectedLetter.value)) {
         previouslySelectedLetters.value.push(selectedLetter.value)
-        selectedLetter.value = ''
         emit('go', selectedLetter.value)
+        selectedLetter.value = ''
+
     }
 }
 </script>

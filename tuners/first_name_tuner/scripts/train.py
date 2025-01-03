@@ -1,6 +1,8 @@
 import torch
 from torch.utils.data import Dataset
-from transformers import Trainer, TrainingArguments, DistilBertForSequenceClassification
+from transformers import Trainer, TrainingArguments, DistilBertForSequenceClassification, DistilBertTokenizer
+
+model_dir = "../../../models/first-name-classifier"
 
 torch.set_num_threads(10)  # Use 10 threads for intra-op parallelism
 torch.set_num_interop_threads(2)  # Use 2 threads for inter-op parallelism
@@ -58,12 +60,37 @@ if __name__ == '__main__':
         model=model,
         args=training_args,
         train_dataset=train_dataset,
-        eval_dataset=eval_dataset,  # No evaluation dataset provided
+        eval_dataset=eval_dataset,  
     )
 
     # Train the model
-    trainer.train(resume_from_checkpoint="../results/checkpoints/checkpoint-15000")
+    trainer.train(resume_from_checkpoint="../results/checkpoints/checkpoint-46266")
     # trainer.train()
         # Save the final model
-    model.save_pretrained("../../models/first-name-classifier")
-   
+    model.save_pretrained(model_dir)
+
+    tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
+    tokenizer.save_pretrained(model_dir)
+    tokenizer
+
+    # Move model to MPS device if available
+    device = torch.device("mps" if torch.has_mps else "cpu")
+    model.to(device)
+
+    # Switch the model to evaluation mode
+    model.eval()
+
+    # Create a dummy input for ONNX export
+    dummy_input = tokenizer("Joshua", return_tensors="pt").to(device)
+
+    # Export the model to ONNX
+    torch.onnx.export(
+        model,                                          # The model to be exported
+        (dummy_input["input_ids"], dummy_input["attention_mask"]),  # Model inputs
+        model_dir + "/model.onnx",                                   # Path to save the ONNX model
+        input_names=["input_ids", "attention_mask"],    # Input names
+        output_names=["output"],                        # Output names
+        dynamic_axes={"input_ids": {0: "batch_size"}, "attention_mask": {0: "batch_size"}, "output": {0: "batch_size"}},  # Dynamic axes
+        opset_version=14                               # ONNX opset version
+    )
+    print("Model exported to ONNX!")
