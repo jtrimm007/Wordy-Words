@@ -11,7 +11,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useState } from '@/stores/state'
+import { storeToRefs } from 'pinia';
+const state = useState()
 
+const { connectionsArray } = storeToRefs(state)
 const emit = defineEmits(['go'])
 const alphabet: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('')
 const selectedLetter = ref<string>('')

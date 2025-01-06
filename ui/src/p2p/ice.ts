@@ -4,7 +4,7 @@ const fetchIceServers = async () => {
     const response = await fetch('https://global.xirsys.net/_turn/word-game', {
         method: 'PUT',
         headers: {
-            Authorization: 'Basic ' + btoa('jtrimm007:d39ed6e2-560a-11ef-9b6d-0242ac150003'), // Replace with your credentials
+            Authorization: 'Basic ' + btoa('jtrimm007:5dd33666-cada-11ef-91eb-0242ac150006'), // Replace with your credentials
             'Content-Type': 'application/json'
         }
     })
