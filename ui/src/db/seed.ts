@@ -11,4 +11,3 @@ export async function seedAnimalCSVData(csvFilePath: string) {
     await db.animals.bulkAdd(animalNames.map(name => ({ name })));
     console.log('CSV data loaded into IndexedDB');
 }
-
